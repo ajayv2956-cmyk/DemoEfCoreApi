@@ -1,0 +1,6 @@
+@DemoEfCoreApi_HostAddress = http://localhost:5070
+
+GET {{DemoEfCoreApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
