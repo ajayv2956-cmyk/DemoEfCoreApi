@@ -1,36 +1,34 @@
-﻿using DemoEfCoreApi.Data;
-using DemoEfCoreApi.Models;
+﻿using DemoEfCoreApi.Models;
+using DemoEfCoreApi.Repositories.Interfaces;
 using DemoEfCoreApi.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace DemoEfCoreApi.Services
 {
     public class ProductService : IProductService
     {
-        private readonly DemoEfDbContext _context;
+        private readonly IProductRepository _productRepository;
 
-        public ProductService(DemoEfDbContext context)
+        public ProductService(IProductRepository productRepository)
         {
-            _context = context;
+            _productRepository = productRepository;
         }
 
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
-            return await _context.Products.ToListAsync();
+            return await _productRepository.GetAllAsync();
         }
 
         public async Task<Product?> GetByIdAsync(int id)
         {
-            return await _context.Products.FindAsync(id);
+            return await _productRepository.GetByIdAsync(id);
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _productRepository.GetByIdAsync(id);
             if (product == null) return false;
 
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
+            await _productRepository.DeleteAsync(id);
             return true;
         }
     }

@@ -1,5 +1,7 @@
 ﻿using DemoEfCoreApi.Data;
 using DemoEfCoreApi.Helpers;
+using DemoEfCoreApi.Repositories;
+using DemoEfCoreApi.Repositories.Interfaces;
 using DemoEfCoreApi.Services;
 using DemoEfCoreApi.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -45,6 +47,7 @@ namespace DemoEfCoreApi.Extensions
             // DI registration
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IProductRepository, ProductRepository>();
         }
     }
 }
