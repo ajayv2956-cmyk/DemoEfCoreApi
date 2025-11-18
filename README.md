@@ -1,4 +1,5 @@
 # DemoEfCoreApi
+# Design Pattern: Controller -> Services -> Repository ->DbContext
 # Used JwtToken
 # Separate ServiceExtensions file for services registration
 # Db script
@@ -30,3 +31,21 @@ INSERT INTO dbo.Users ([Username],[PasswordHash]) VALUES ('admin','password'); -
 INSERT INTO dbo.Products ([Name],[Price],[Description]) VALUES
 ('Sample Product 1', 99.99, 'Demo product 1'),
 ('Sample Product 2', 49.50, 'Demo product 2');
+
+-- Example SQL for retrieving all products
+CREATE PROCEDURE [dbo].[GetAllProducts]
+AS
+BEGIN
+    SELECT id, name, price, description
+    FROM Products;
+END
+GO
+CREATE PROCEDURE [dbo].[GetProductById]
+    @Id INT
+AS
+BEGIN
+    SELECT id, name, price, description
+    FROM Products
+    WHERE id = @Id;
+END
+GO
